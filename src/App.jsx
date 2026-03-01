@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router';
+import Home from './components/Home.jsx';
+import Shop from './components/Shop';
+import Cart from './components/Cart';
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [shoppingCart, setShoppingCart] = useState({});
+	const [products, setProducts] = useState([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	useEffect(() => {
+		fetch('https://fakestoreapi.com/products')
+			.then((resp) => resp.json())
+			.then((data) => {
+				setProducts(data);
+			});
+	}, []);
+
+	console.log(shoppingCart);
+
+	function addToCart(data) {
+		const id = data.id;
+		setShoppingCart((prevData) => {
+			const newCart = { ...shoppingCart };
+			const count = newCart[id];
+			newCart[id] = count ? count + 1 : 1;
+			return newCart;
+		});
+	}
+
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/shop" element={<Shop products={products} addToCart={addToCart} />} />
+				<Route
+					products={products}
+					shoppingCart={shoppingCart}
+					setShoppingCart={setShoppingCart}
+					path="/cart"
+					element={<Cart />}
+				/>
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
-export default App
+export default App;
