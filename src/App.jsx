@@ -19,14 +19,12 @@ function App() {
 
 	console.log(shoppingCart);
 
-	function addToCart(data) {
-		const id = data.id;
-		setShoppingCart((prevData) => {
-			const newCart = { ...shoppingCart };
-			const count = newCart[id];
-			newCart[id] = count ? count + 1 : 1;
-			return newCart;
-		});
+	function addToCart(id) {
+		const newCart = { ...shoppingCart };
+		const count = newCart[id];
+		newCart[id] = count ? count + 1 : 1;
+
+		setShoppingCart(newCart);
 	}
 
 	return (
@@ -34,13 +32,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/shop" element={<Shop products={products} addToCart={addToCart} />} />
-				<Route
-					products={products}
-					shoppingCart={shoppingCart}
-					setShoppingCart={setShoppingCart}
-					path="/cart"
-					element={<Cart />}
-				/>
+				<Route path="/cart" element={<Cart products={products} />} />
 			</Routes>
 		</BrowserRouter>
 	);
