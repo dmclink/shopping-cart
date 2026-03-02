@@ -17,8 +17,6 @@ function App() {
 			});
 	}, []);
 
-	console.log(shoppingCart);
-
 	function addToCart(id) {
 		const newCart = { ...shoppingCart };
 		const count = newCart[id];
@@ -27,12 +25,41 @@ function App() {
 		setShoppingCart(newCart);
 	}
 
+	function removeFromCart(id) {
+		const newCart = { ...shoppingCart };
+		delete newCart[id];
+
+		setShoppingCart(newCart);
+	}
+
+	function editQuantity(id, quantity) {
+		const newCart = { ...shoppingCart };
+		newCart[id] = quantity;
+
+		setShoppingCart(newCart);
+	}
+
+	function wipeCart() {
+		setShoppingCart({});
+	}
+
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/shop" element={<Shop products={products} addToCart={addToCart} />} />
-				<Route path="/cart" element={<Cart products={products} />} />
+				<Route
+					path="/cart"
+					element={
+						<Cart
+							products={products}
+							shoppingCart={shoppingCart}
+							removeFromCart={removeFromCart}
+							editQuantity={editQuantity}
+							wipeCart={wipeCart}
+						/>
+					}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);
