@@ -19,10 +19,13 @@ function Cart({ products, shoppingCart, removeFromCart, editQuantity, wipeCart }
 		}
 	}
 
+	const shoppingCartIsEmpty = Object.entries(shoppingCart).length === 0;
+
 	return (
 		<main>
 			<Nav />
 			<div className="main-container">
+				{shoppingCartIsEmpty ? <p>No items in cart yet!</p> : null}
 				<div className="shopping-cart-list">
 					{Object.entries(shoppingCart).map(([id, qty]) => (
 						<>
