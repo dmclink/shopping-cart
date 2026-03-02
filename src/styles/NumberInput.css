@@ -1,0 +1,21 @@
+.number-input__label {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+.number-input__field {
+	padding: 0.4rem 1rem;
+	font-size: 1.2rem;
+}
+
+.number-input__button-controls {
+	font-size: 2rem;
+	font-weight: bold;
+	display: flex;
+	gap: 5px;
+}
+
+.number-input__button {
+	padding: 0.4rem 1rem;
+	display: grid;
+	place-content: center;
+}
