@@ -2,12 +2,15 @@
 	max-width: 1280px;
 	margin: 0 auto;
 	text-align: center;
+	min-height: 100vh;
 }
 
 main {
-	padding-top: 3.3rem;
-	/* display: flex; */
-	/* place-items: center; */
+	--hdr-height: 3.3rem;
+	padding-top: var(--hdr-height);
+	min-height: calc(100vh - var(--hdr-height));
+	display: flex;
+	place-items: center;
 	/* min-height: 100vh; */
 }
 
@@ -72,4 +75,8 @@ main {
 	&:active {
 		filter: brightness(0.8);
 	}
+}
+
+.main-container {
+	margin: 0 auto;
 }
